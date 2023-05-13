@@ -16,14 +16,23 @@ import org.springframework.stereotype.Service;
 
 import com.myproject.chatserver.Model.CreateConversationRequest;
 import com.myproject.chatserver.entity.ConversationEntity;
+import com.myproject.chatserver.entity.MessageEntity;
 import com.myproject.chatserver.entity.ParticipantEntity;
+import com.myproject.chatserver.repository.ConversationRepository;
+import com.myproject.chatserver.repository.MessageRepository;
 import com.myproject.chatserver.repository.ParticipantRepository;
 import com.myproject.chatserver.security.UserContext;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class ConversationService {
     @Autowired
     ParticipantRepository repoParticipant;
+    @Autowired
+    ConversationRepository conversationRepo;
+    @Autowired
+    MessageRepository messageRepo;
     @Autowired
     EntityManager entityManager;
 
@@ -35,10 +44,11 @@ public class ConversationService {
         String username_2 = "";
         username_2 = UserContext.getUsername();
         // ---------------
-        UUID id = UUID.randomUUID();
-        ConversationEntity conversationEntity = new ConversationEntity(id.toString(), "none", "inbox");
-        ParticipantEntity participant_1 = new ParticipantEntity(id.toString(), username_1);
-        ParticipantEntity participant_2 = new ParticipantEntity(id.toString(), username_2);
+        String id = UUID.randomUUID().toString().replace("-", "");
+
+        ConversationEntity conversationEntity = new ConversationEntity(id, "none", "inbox");
+        ParticipantEntity participant_1 = new ParticipantEntity(id, username_1);
+        ParticipantEntity participant_2 = new ParticipantEntity(id, username_2);
         participant_1.setConversation(conversationEntity);
         participant_2.setConversation(conversationEntity);
         System.out.println("this is id: " + id.toString());
@@ -55,4 +65,13 @@ public class ConversationService {
                 .setParameter("username", username);
         return query.getResultList();
     }
+
+    public void setConversationName(String id, String name) {
+        conversationRepo.setName(id, name);
+    }
+
+    public List<MessageEntity> getAllMessage(String conversationId) {
+        return messageRepo.getAllMessageInConversation(conversationId);
+    }
+
 }

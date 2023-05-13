@@ -28,13 +28,17 @@ public class ParticipantEntity {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "nickname")
+    private String nickname;
+
     @ManyToOne
     @JoinColumn
     private ConversationEntity conversation;
 
     public ParticipantEntity(String conversationId, String username) {
         this.username = username;
-        UUID id = UUID.randomUUID();
-        this.id = id.toString();
+        String id = UUID.randomUUID().toString().replace("-", "");
+        this.id = id;
+        this.nickname = this.username;
     }
 }

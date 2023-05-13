@@ -1,7 +1,7 @@
 package com.myproject.chatserver.entity;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -40,5 +41,11 @@ public class ConversationEntity {
         this.name = name;
         this.type = type;
         this.participant = new ArrayList<>();
+        this.lastUpdate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        lastUpdate = new Date();
     }
 }
