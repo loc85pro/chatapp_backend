@@ -18,9 +18,9 @@ public class UserRepository {
     private EntityManager entityManager;
 
     public List<UserEntity> getAll() {
+        System.out.println("begin");
         Session session = entityManager.unwrap(Session.class);
-        TypedQuery<UserEntity> query = session.createQuery("FROM UserEntity", UserEntity.class);
-        return query.getResultList();
+        return session.createQuery("FROM UserEntity").getResultList();
     }
 
     public UserEntity getByUsername(String username) {

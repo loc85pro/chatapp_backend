@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "participant_conversation")
+@Table(name = "participant")
 public class ParticipantEntity {
     @Id
     @Column(name = "id")
@@ -29,11 +29,10 @@ public class ParticipantEntity {
     private String username;
 
     @ManyToOne
-    @JoinColumn(name = "conversationId")
+    @JoinColumn
     private ConversationEntity conversation;
 
     public ParticipantEntity(String conversationId, String username) {
-        // this.conversationId = conversationId;
         this.username = username;
         UUID id = UUID.randomUUID();
         this.id = id.toString();

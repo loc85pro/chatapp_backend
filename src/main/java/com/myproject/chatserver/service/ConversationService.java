@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -45,11 +46,13 @@ public class ConversationService {
         conversationEntity.getParticipant().add(participant_2);
         session.persist(conversationEntity);
 
-        // repoConversation.save(conversationEntity);
     }
 
-    public List<ConversationEntity> getAll() {
-        // return repoConversation.findAll();
-        return null;
+    public List<Object> getAll(String username) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createQuery(
+                "SELECT con.id FROM ParticipantEntity par INNER JOIN par.conversation con WHERE par.username=:username")
+                .setParameter("username", username);
+        return query.getResultList();
     }
 }

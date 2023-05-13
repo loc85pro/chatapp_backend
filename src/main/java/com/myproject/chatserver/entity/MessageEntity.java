@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -14,12 +15,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "messenger")
-public class MessengerEntity {
+@Table(name = "message")
+public class MessageEntity {
     @Id
-    private String messenger_Id;
-    private String conversation_Id;
-    private String username;
+    private String id;
+    @ManyToOne
+    private ConversationEntity conversation;
+    @ManyToOne
+    private UserEntity user;
     private String type;
     private String content;
     private Date time;

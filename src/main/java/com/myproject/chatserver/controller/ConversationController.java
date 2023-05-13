@@ -1,5 +1,7 @@
 package com.myproject.chatserver.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myproject.chatserver.Model.CreateConversationRequest;
-import com.myproject.chatserver.Model.ListConversationResponse;
+import com.myproject.chatserver.security.UserContext;
 import com.myproject.chatserver.service.ConversationService;
 
 @RestController
@@ -25,8 +27,9 @@ public class ConversationController {
     }
 
     @GetMapping("/getall")
-    public ResponseEntity<ListConversationResponse> getAllConversation() {
-        ListConversationResponse rs = new ListConversationResponse(service.getAll());
+    public ResponseEntity<Object> getAllConversation() {
+        String user = UserContext.getUsername();
+        List<Object> rs = service.getAll(user);
         return ResponseEntity.status(200).body(rs);
     }
 

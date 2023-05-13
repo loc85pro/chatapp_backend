@@ -1,5 +1,6 @@
 package com.myproject.chatserver.entity;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,13 @@ public class ConversationEntity {
     private String name;
     @Column(name = "type")
     private String type;
-    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, targetEntity = ParticipantEntity.class)
+    @Column(name = "last_update")
+    private Date lastUpdate;
+    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL)
     private List<ParticipantEntity> participant;
+
+    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL)
+    private List<MessageEntity> messenger;
 
     public ConversationEntity(String id, String name, String type) {
         this.id = id;
