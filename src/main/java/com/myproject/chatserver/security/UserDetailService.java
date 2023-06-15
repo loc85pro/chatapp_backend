@@ -1,6 +1,7 @@
 package com.myproject.chatserver.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +16,8 @@ public class UserDetailService implements UserDetailsService {
     UserRepository repo;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
+        System.out.println("getting by db");
         UserEntity user = repo.getByUsername(username);
         if (user == null)
             throw new UsernameNotFoundException(username);

@@ -24,4 +24,8 @@ public class UserService {
                 rq.getEmail());
         repo.insertUser(user);
     }
+
+    public UserEntity getUserByUsername(String username) {
+        return repo.getByUsername(username);
+    }
 }

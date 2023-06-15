@@ -2,24 +2,26 @@ package com.myproject.chatserver.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.myproject.chatserver.Model.ValidationResponse;
 import com.myproject.chatserver.entity.UserEntity;
 import com.myproject.chatserver.repository.UserRepository;
 import com.myproject.chatserver.security.UserContext;
 import com.myproject.chatserver.service.ConversationService;
 
-import io.jsonwebtoken.MalformedJwtException;
-
 import java.util.List;
 
+import javax.persistence.ValidationMode;
+
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/other")
 public class RandomController {
     @Autowired
     UserRepository repo;
@@ -37,9 +39,9 @@ public class RandomController {
         return "admin";
     }
 
-    @PostMapping(value = "/")
-    public String test() {
-        return "this is test";
+    @GetMapping(value = "/check_authentication")
+    public ResponseEntity<ValidationResponse> checkAuthenticationByToken() {
+        return ResponseEntity.status(200).body(new ValidationResponse("Successfuly", ""));
     }
 
     @GetMapping(value = "getalluser")

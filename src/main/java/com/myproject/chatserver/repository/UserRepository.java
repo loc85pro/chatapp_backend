@@ -1,12 +1,14 @@
 package com.myproject.chatserver.repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
+import org.apache.tomcat.jni.User;
 import org.hibernate.Session;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,14 +20,14 @@ public class UserRepository {
     private EntityManager entityManager;
 
     public List<UserEntity> getAll() {
-        System.out.println("begin");
         Session session = entityManager.unwrap(Session.class);
         return session.createQuery("FROM UserEntity").getResultList();
     }
 
     public UserEntity getByUsername(String username) {
         Session session = entityManager.unwrap(Session.class);
-        return (UserEntity) session.find(UserEntity.class, username);
+        UserEntity result = (UserEntity) session.find(UserEntity.class, username);
+        return result;
     }
 
     @Transactional(rollbackFor = { Exception.class, Throwable.class })

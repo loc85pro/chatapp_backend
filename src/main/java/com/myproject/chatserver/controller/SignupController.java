@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myproject.chatserver.Model.SignupRequest;
+import com.myproject.chatserver.Model.TokenModel;
 import com.myproject.chatserver.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class SignupController {
     JwtProvider jwtProvider;
 
     @PostMapping(value = "")
-    public String signupPost(@RequestBody SignupRequest request) {
+    public TokenModel signupPost(@RequestBody SignupRequest request) {
         System.out.println("Dang signup");
         service.saveUser(request);
         // --------------------------
@@ -37,9 +38,9 @@ public class SignupController {
                                 request.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtProvider.generateToken(request.getUsername());
-        System.out.println(jwt);
-        return jwt;
+        String accessToken = jwtProvider.generateToken(request.getUsername(), 60000L); // 1 minute for expiration
+        String refreshToken = jwtProvider.generateToken(request.getUsername(), 300000L); // 5 minutes for expiration
+        return new TokenModel(accessToken, refreshToken);
     }
 
 }

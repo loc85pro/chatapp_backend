@@ -9,9 +9,6 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.myproject.chatserver.Model.CreateConversationRequest;
@@ -22,8 +19,6 @@ import com.myproject.chatserver.repository.ConversationRepository;
 import com.myproject.chatserver.repository.MessageRepository;
 import com.myproject.chatserver.repository.ParticipantRepository;
 import com.myproject.chatserver.security.UserContext;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class ConversationService {

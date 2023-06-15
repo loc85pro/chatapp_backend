@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.myproject.chatserver.Model.CreateConversationRequest;
-import com.myproject.chatserver.entity.ConversationEntity;
 import com.myproject.chatserver.entity.MessageEntity;
 import com.myproject.chatserver.security.UserContext;
 import com.myproject.chatserver.service.ConversationService;
@@ -33,7 +32,8 @@ public class ConversationController {
     @PostMapping("/create")
     public ResponseEntity<String> createNewConversation(@RequestBody CreateConversationRequest request) {
         conversationService.createNewConversation(request);
-        return ResponseEntity.status(200).body("Successfully");
+        return null;
+        // return ResponseEntity.status(200).(JSONPObject());
     }
 
     @GetMapping("/getall")
