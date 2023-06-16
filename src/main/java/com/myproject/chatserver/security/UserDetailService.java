@@ -17,7 +17,6 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        System.out.println("getting by db");
         UserEntity user = repo.getByUsername(username);
         if (user == null)
             throw new UsernameNotFoundException(username);

@@ -50,7 +50,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
                         null, userDetail.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                System.out.println("Xong r ne");
                 filterChain.doFilter(request, response);
             } else
                 throw new MalformedJwtException("");
@@ -78,12 +77,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String requestPath = request.getServletPath();
         String ignoredURL[] = { "/api/login", "/api/login/", "/api/signup", "/api/signup",
-                "/validation/user_existing", "/token/refresh", "/data", "/hello", "/data/info?t=1686797895305" };
+                "/validation/user_existing", "/token/refresh", "/data", "/hello", };
+        for (String path : ignoredURL) {
+            if (path.equals(requestPath))
+                return true;
+        }
         return true;
-        // // for (String path : ignoredURL) {
-        // // if (path.equals(requestPath))
-        // // return true;
-        // }
-        // return false;
     }
 }

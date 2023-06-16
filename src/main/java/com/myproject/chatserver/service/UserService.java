@@ -1,5 +1,6 @@
 package com.myproject.chatserver.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,15 @@ public class UserService {
         return repo.getAll();
     }
 
+    public List<String> getAllUsername() {
+        List<UserEntity> list = repo.getAll();
+        List<String> result = new ArrayList<String>();
+        list.forEach((user) -> {
+            result.add(user.getUsername());
+        });
+        return result;
+    }
+
     public void saveUser(SignupRequest rq) {
         String defaultRole = "USER";
         UserEntity user = new UserEntity(rq.getUsername(), rq.getPassword(), defaultRole, rq.getFullName(),
@@ -27,5 +37,9 @@ public class UserService {
 
     public UserEntity getUserByUsername(String username) {
         return repo.getByUsername(username);
+    }
+
+    public void setAvatar(String avatarPath) {
+
     }
 }
