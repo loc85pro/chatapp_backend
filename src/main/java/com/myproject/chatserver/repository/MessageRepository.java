@@ -21,7 +21,9 @@ public class MessageRepository {
     }
 
     public List<MessageEntity> getAllMessageInConversation(String id) {
-        return entityManager.createQuery("FROM MessageEntity m WHERE m.conversation.id ==:id").getResultList();
+        return entityManager.createQuery("FROM MessageEntity m WHERE m.conversation.id =:id ORDER BY m.time")
+                .setParameter("id", id)
+                .getResultList();
 
     }
 }

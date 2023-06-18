@@ -82,6 +82,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (path.equals(requestPath))
                 return true;
         }
-        return true;
+        return false;
     }
 }

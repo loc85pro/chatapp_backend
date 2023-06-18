@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ public class MessageEntity {
     @Id
     private String id;
     @ManyToOne
+    @JsonIgnore
     private ConversationEntity conversation;
 
     private String username;

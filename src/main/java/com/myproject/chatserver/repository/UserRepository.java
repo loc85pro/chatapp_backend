@@ -21,7 +21,8 @@ public class UserRepository {
 
     public List<UserEntity> getAll() {
         Session session = entityManager.unwrap(Session.class);
-        return session.createQuery("FROM UserEntity").getResultList();
+        List<UserEntity> result = session.createQuery("FROM UserEntity").getResultList();
+        return result;
     }
 
     public UserEntity getByUsername(String username) {
