@@ -30,12 +30,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers",
-                "Content-Type, Accept, X-Requested-With, remember-me, Token");
+//        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+//        response.setHeader("Access-Control-Allow-Credentials", "true");
+//        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+//        response.setHeader("Access-Control-Max-Age", "3600");
+//        response.setHeader("Access-Control-Allow-Headers",
+//                "Content-Type, Accept, X-Requested-With, remember-me, Token");
 
         try {
 
@@ -77,11 +77,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String requestPath = request.getServletPath();
         String ignoredURL[] = { "/api/login", "/api/login/", "/api/signup", "/api/signup",
-                "/validation/user_existing", "/token/refresh", "/data", "/hello", };
+                "/validation/user_existing", "/token/refresh", "/data", "/hello", "/user/get_avatar" };
         for (String path : ignoredURL) {
             if (path.equals(requestPath))
                 return true;
         }
+
         return false;
     }
 }

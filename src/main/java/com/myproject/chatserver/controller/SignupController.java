@@ -38,8 +38,8 @@ public class SignupController {
                                 request.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String accessToken = jwtProvider.generateToken(request.getUsername(), 60000L); // 1 minute for expiration
-        String refreshToken = jwtProvider.generateToken(request.getUsername(), 300000L); // 5 minutes for expiration
+        String accessToken = jwtProvider.generateToken(request.getUsername(), 300000L); // 1 minute for expiration
+        String refreshToken = jwtProvider.generateToken(request.getUsername(), 900000L); // 5 minutes for expiration
         return new TokenModel(accessToken, refreshToken);
     }
 

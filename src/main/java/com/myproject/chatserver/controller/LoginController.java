@@ -42,8 +42,8 @@ public class LoginController {
 
         if (authentication != null)
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        String accessToken = jwtProvider.generateToken(requestBody.getUsername(), 60000L); // 1 minute for expiration
-        String refreshToken = jwtProvider.generateToken(requestBody.getUsername(), 3600000L); // 5 minutes for
+        String accessToken = jwtProvider.generateToken(requestBody.getUsername(), 3600000L); // 1 minute for expiration
+        String refreshToken = jwtProvider.generateToken(requestBody.getUsername(), 9600000L); // 5 minutes for
         // expiration
         Cookie cookie = new Cookie("token", accessToken);
         response.addCookie(cookie);

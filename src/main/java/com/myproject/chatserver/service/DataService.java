@@ -17,9 +17,12 @@ public class DataService {
     // par.conversation.id=con.id WHERE par.conversation.id in(select
     // par_1.conversation.id from ParticipantEntity par_1 where
     // par_1.username=:username)
+
+    // FROM ConversationEntity con JOIN con.participant par WHERE
+    // par.username=:username ORDER BY con.lastUpdate
     public Object init(String username) {
         return entityManager.createQuery(
-                "FROM ConversationEntity con JOIN con.participant par WHERE par.username=:username ORDER BY con.lastUpdate")
+                "SELECT con FROM ConversationEntity con JOIN con.participant par WHERE par.username=:username")
                 .setParameter("username", username).getResultList();
     }
 }

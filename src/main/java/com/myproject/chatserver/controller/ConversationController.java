@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.myproject.chatserver.Model.CreateConversationRequest;
+import com.myproject.chatserver.entity.ConversationEntity;
 import com.myproject.chatserver.entity.MessageEntity;
 import com.myproject.chatserver.security.UserContext;
 import com.myproject.chatserver.service.ConversationService;
@@ -55,6 +57,16 @@ public class ConversationController {
     public ResponseEntity<List<MessageEntity>> getAllMessage(@PathVariable String conversationId) {
         List<MessageEntity> allMessage = conversationService.getAllMessage(conversationId);
         return ResponseEntity.status(200).body(allMessage);
+    }
+
+    @GetMapping(value = "/seen")
+    public void seenConversation(@RequestParam String id) {
+        conversationService.seenConversation(id);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ConversationEntity getConversationById(@PathVariable String id) {
+        return conversationService.getById(id);
     }
 
 }

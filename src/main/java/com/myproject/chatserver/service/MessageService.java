@@ -32,9 +32,10 @@ public class MessageService {
         String userSend = UserContext.getUsername();
         ConversationEntity conversation = conversationRepo.getById(conversationId);
         conversation.setLastUpdate(new Date(System.currentTimeMillis()));
+        conversation.setSeen(false);
         MessageEntity message = new MessageEntity(id, conversation, userSend, "text-plain",
                 request.getContent(), new Date());
-        System.out.println("Xin chao bro");
+        System.out.println(userSend);
         messageRepo.insertMessage(message);
     }
 }

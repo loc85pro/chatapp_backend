@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,12 +14,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Table(name = "participant")
 public class ParticipantEntity {
     @Id
@@ -31,9 +35,9 @@ public class ParticipantEntity {
     @Column(name = "nickname")
     private String nickname;
 
-    @ManyToOne
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonIgnore
+    @JoinColumn(name = "conversation_id")
     private ConversationEntity conversation;
 
     public ParticipantEntity(String conversationId, String username) {

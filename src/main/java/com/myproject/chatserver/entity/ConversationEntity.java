@@ -7,17 +7,20 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Table(name = "conversation")
 public class ConversationEntity {
     @Id
@@ -29,11 +32,13 @@ public class ConversationEntity {
     private String type;
     @Column(name = "last_update")
     private Date lastUpdate;
-    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL)
+    @Column(name = "seen")
+    private boolean seen;
+    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ParticipantEntity> participant;
 
-    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL)
-    private List<MessageEntity> messenger;
+    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MessageEntity> message;
 
     public ConversationEntity(String id, String name, String type) {
         this.id = id;

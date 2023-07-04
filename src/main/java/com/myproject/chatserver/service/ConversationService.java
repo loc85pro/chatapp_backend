@@ -69,4 +69,13 @@ public class ConversationService {
         return messageRepo.getAllMessageInConversation(conversationId);
     }
 
+    @Transactional
+    public void seenConversation(String id) {
+        ConversationEntity con = conversationRepo.getById(id);
+        entityManager.persist(con);
+    }
+
+    public ConversationEntity getById(String id) {
+        return conversationRepo.getById(id);
+    }
 }

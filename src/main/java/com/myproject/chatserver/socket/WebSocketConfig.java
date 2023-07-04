@@ -12,7 +12,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.enableSimpleBroker("/conversation");
-        registry.setApplicationDestinationPrefixes("/ws");
+        registry.setApplicationDestinationPrefixes("/app");
     }
 
     @Override

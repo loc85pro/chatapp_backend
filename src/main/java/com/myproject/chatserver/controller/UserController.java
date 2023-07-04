@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.myproject.chatserver.entity.UserEntity;
+import com.myproject.chatserver.security.UserContext;
 import com.myproject.chatserver.service.FileService;
 import com.myproject.chatserver.service.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,12 @@ public class UserController {
     @GetMapping("/get_all_username")
     public List<String> getMethodName() {
         return userService.getAllUsername();
+    }
+
+    @GetMapping("/get_own_data")
+    public UserEntity getOwnData() {
+        String username = UserContext.getUsername();
+        return userService.getUserByUsername(username);
     }
 
     @GetMapping(value = "/get_avatar{username}", produces = MediaType.IMAGE_JPEG_VALUE)
